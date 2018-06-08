@@ -1,0 +1,52 @@
+.hero {
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.hero-with-image.hero header, header.transparent-header {
+    background: transparent;
+    border-bottom-color: rgba(255,255,255,0.25);
+}
+
+.hero-with-image.hero .hero-image, .full-background-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.hero > .navbar {
+    background: rgba(255, 255, 255, .8);
+    margin-bottom: 0;
+}
+
+.hero .navbar .nav > li > a:hover {
+    background: transparent;
+}
+
+.hero .navbar .nav >li>a {
+    font-size: 13px;
+    text-shadow: 1px 1px #FFF;
+}
+
+.hero > * {
+    width: 100%;
+}
+
+@media (min-width: 1400px) {
+    .hero {
+        min-height: 600px;
+    }
+ }
+
+@media (min-width: 768px) {
+    .hero {
+      height: 55%;
+      max-height: 585px;
+    }
+}
