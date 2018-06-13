@@ -72,6 +72,7 @@
 }
 .navbar-simple .navbar-inner .nav {
 	float: right;
+
 }
 .navbar-simple .navbar-inner .nav li a {
 	background: none;
@@ -101,3 +102,15 @@
     text-align: justify;
     font-size: 125%;
 }
+.affix {
+      top: 0;
+      width: 100%;
+      z-index: 9999 !important;
+  }
+
+.affix + .container-fluid {
+      position:relative
+      padding-top: 70px;
+      }
+
+

@@ -6,7 +6,11 @@ from flask import (
 )
 import requests
 
+
+
 app = Flask(__name__)
+
+
 
 
 PUBLICATIONS_SOURCE = 'tau.compbio.ucsf.edu'
@@ -67,6 +71,6 @@ def contact():
     return render_template("contact.html")
 
 
+
 if __name__ == '__main__':
-	app.debig = True
-	app.run(host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=5002)
