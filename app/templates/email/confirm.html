@@ -1,0 +1,17 @@
+<p>Dear {{ user.username }},</p>
+
+<p>Welcome to Irwin Lab!</p>
+
+<p>To confirm your account please
+
+ <!--<a href="{{ url_for('confirm', token=token, _external=True) }}">-->
+        <!--click here</a>.<br>-->
+<p>{{ (url_for('confirm', token=token, _external=True)) }}</p>
+
+
+
+Sincerely,<br>
+
+Irwin Lab<br>
+
+    Note: replies to this email address are not monitored.</p>

@@ -2,9 +2,11 @@ from flask import render_template, flash,  redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, ResendConfirmationEmail, ResetPasswordForm, ResetPasswordRequestForm
 from app.models import User
+from app.emails import send_confirmation_request_email, send_password_reset_email, notify_new_user_to_admin
 import requests
+from itsdangerous import URLSafeTimedSerializer
 import os
 
 
@@ -37,7 +39,6 @@ def topics():
 @app.route('/projects')
 def projects():
     return render_template("projects.html")
-
 
 @app.route('/publications')
 def publications():
@@ -101,6 +102,9 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
+        notify_new_user_to_admin(user)
+        send_confirmation_request_email(user)
+        flash('A confirmation email has been sent to you by email.')
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html',  form=form)
@@ -109,14 +113,14 @@ def register():
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    #print('hi1')
-    #print('hi2 {}'.format(form.validate_on_submit()))
+
     form = EditProfileForm(current_user.username)
     if form.cancel.data:
         return redirect(url_for('people'))
     if form.validate_on_submit():
         current_user.title = form.title.data
-        current_user.bio = form.bio.data
+        current_user.email = form.email.data
+        current_user.bio = request.form['bio']
         if form.photo.data is None:
             form.photo.data = current_user.photo_name
         else:
@@ -128,6 +132,66 @@ def edit_profile():
         return redirect(url_for('people'))
     elif request.method == 'GET':
         form.title.data = current_user.title
-        form.bio.data = current_user.bio
+        form.email.data = current_user.email
         form.photo.data = current_user.photo_name
     return render_template('edit_profile.html', form=form)
+
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html', form=form)
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('home'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
+
+@app.route('/confirm/<token>')
+def confirm(token):
+    try:
+        confirm_serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        email = confirm_serializer.loads(token, salt=app.config['SECURITY_PASSWORD_SALT'], max_age=3600)
+    except:
+        flash('The confirmation link is invalid or has expired.')
+        return redirect(url_for('unconfirm'))
+    user = User.query.filter_by(email=email).first()
+    if user.confirmed:
+        flash('Account already confirmed. Please login.')
+    else:
+        user.confirmed = True
+        db.session.add(user)
+        db.session.commit()
+        flash('Thank you for confirming your email address.')
+    return redirect(url_for('login'))
+
+@app.route('/unconfirm', methods=['GET', 'POST'])
+def unconfirm():
+    form = ResendConfirmationEmail()
+    if form.validate_on_submit():
+        email = form.email.data
+        user = User.query.filter_by(email=email).first_or_404()
+        if user:
+            send_confirmation_request_email(user)
+        flash('Please check your inbox for confirmation email')
+        return redirect(url_for('login'))
+    return render_template('unconfirm.html', form=form)
+
+

@@ -1,0 +1,15 @@
+Dear {{ user.username }},
+
+Welcome to Irwin Lab!
+
+To confirm your account please click on the following link:
+
+{{ url_for('confirm', token=token, _external=True) }}
+
+Bests,
+
+Sincerely,
+
+Irwin Lab
+
+Note: replies to this email address are not monitored.

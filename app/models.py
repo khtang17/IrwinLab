@@ -1,14 +1,18 @@
-from app import db, login
+from app import app, db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from itsdangerous import URLSafeTimedSerializer
+import jwt
+from time import time
 
 
 
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(16), index=True,  unique=True)
+    username = db.Column(db.String(16))
     role = db.Column(db.String(16), default='user')
+    confirmed = db.Column(db.Boolean, default=False)
     email = db.Column(db.String(200))
     password_hash = db.Column(db.String(200))
     firstName = db.Column(db.String(16))
@@ -33,6 +37,24 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+            {'reset_password': self.id, 'exp': time() + expires_in},
+            app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return User.query.get(id)
+
+    def generate_confirmation_token(self):
+        serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        return serializer.dumps(self.email, salt=app.config['SECURITY_PASSWORD_SALT'])
 
 @login.user_loader
 def load_user(id):

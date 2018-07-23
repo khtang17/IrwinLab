@@ -2,24 +2,30 @@
 {% block page_title %} Lab members {% endblock %}
 
 {% block content %}
+
+<div class="container">
+
     <div class="panel panel-default">
-    <div class="panel-heading">
-    <div class="panel-title"><h2>Lab Members</h2></div>
-    </div>
+        <div class="panel-heading">
+            <div class="panel-title"><h2>Lab Members</h2></div>
+        </div>
     <div class="panel-body">
 
 {% for user in users %}
         <div class="container-fluid">
-    <div class="thumbnail pull-right col-md-4">
+            <div class="thumbnail pull-right col-md-4">
+                <img src="{{ url_for('static', filename='img/') }}{{ user.photo_name }}" width="300px">
+            </div>
 
-        <img src="{{ url_for('static', filename='img/') }}{{ user.photo_name }}" width="300px">
+            <div class="page-header">
+                <h3>{{ user.firstName }}&nbsp;{{user.lastName }}</h3><br>
+                <p >{{ user.bio | safe }}</p>
+            </div><br>
+
+        </div>
+    {% endfor %}
+        </div>
     </div>
-
-<div class="page-header">
-    <h3>{{ user.firstName }}&nbsp;{{user.lastName }}</h3><br>
-     <p >{{ user.bio }}</p>
-</div><br>
-            <hr>
 
 <!--<p>
 John Irwin is Adjunct Associate Professor in the Department of Pharmaceutical Chemistry at the University of California San Francisco.  
@@ -36,9 +42,6 @@ He spent a year and a half as a staff scientist at EMBL-EBI also in Cambridge wo
 He has been working on DOCK, ZINC, and SEA since 2000.
 </p>
  since 2000-->
-
-    {% endfor %}
-
 
 <!--<div class="clearfix">
     <div class="thumbnail pull-right">
@@ -104,18 +107,18 @@ Analyzing the potential of fragment molecules as tools for enzyme function predi
 </p>
 </div>-->
 
-</div>
-</div>
+
 
     <div class="panel panel-default">
-    <div class="panel-heading">
-    <div class="panel-title"><h2>Former Members</h2></div>
-    </div>
-    <div class="panel-body">
+        <div class="panel-heading">
+            <div class="panel-title"><h2>Former Members</h2></div>
+        </div>
+        <div class="panel-body">
 {% for former_user in former_users %}
         <h3>{{ former_user.firstName }}&nbsp;{{ former_user.lastName }}</h3>
-        <p> {{ former_user.bio }}</p>
+        <p> {{ former_user.bio | safe }}</p>
         {% endfor %}
+        </div>
 <!--<h3>Teague Sterling</h3>
 <p>
 Teague holds Bachelor's and Master's degrees in computer science from San Francisco State University, where he has been teaching computer science for 5 years. Teague is the author of the ZINC 12 and ZINC 15 interfaces, as well as many other tools and databases in the lab.
@@ -133,8 +136,8 @@ Now a software engineer at Hitachi Corp, Santa Clara, CA
 
 <h3>Pierce Ogden</h3>
 <p>Now a graduate student at Harvard University.</p>-->
-</div>
-</div>
+
+    </div>
     </div>
 {% endblock %}
 
