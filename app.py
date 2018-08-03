@@ -10,4 +10,8 @@ def make_shell_context():
 if __name__ == '__main__':
     #app.debug = True
     #app.run()
+<<<<<<< HEAD
     app.run(debug=True, host='0.0.0.0', port=5014)
+=======
+    app.run(debug=True, host='0.0.0.0', port=5004)
+>>>>>>> 3b9e69d4eabd2b78397d9a676eb3f5e796d8d15a

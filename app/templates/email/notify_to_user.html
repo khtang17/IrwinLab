@@ -1,0 +1,11 @@
+<p>Dear {{ user.firstName }},</p>
+<p>
+    You have been granted access to Irwin Lab. Click <a href="{{ url_for('login', _external=True) }}">here</a> to login and update your profile
+</p>
+    <p>Your email : {{ user.email }}</p>
+    <p>Your username : {{ user.username }}</p>
+<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>{{ url_for('login', _external=True) }}</p>
+
+<p>Sincerely,</p>
+<p>Irwin Lab @ UCSF</p>

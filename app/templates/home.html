@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% block page_title %} Homepage {% endblock %}
 {% block css %}
     <link href="{{ url_for('static', filename='css/hero.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/carousel.css') }}" rel="stylesheet">
@@ -37,7 +38,8 @@
           </div>
         </div>
         <div class="item">
-            <img src="{{ url_for('static', filename='img/dockblaster1.png') }}" style="opacity:0.6;filter:alpha(opacity=40);">
+            <img src="{{ url_for('static', filename='img/dockblaster1.png') }}">
+            <div class="mask"></div>
           <div class="container">
             <div class="carousel-caption">
               <h1>DOCK Blaster</h1>
