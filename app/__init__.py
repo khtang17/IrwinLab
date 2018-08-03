@@ -30,7 +30,7 @@ admin = flask_admin.Admin(
 )
 
 from app.models import User
-admin.add_view(UserView(User, db.session, 'users'))
+admin.add_view(UserView(User, db.session, 'Users'))
 
 
 if not app.debug:

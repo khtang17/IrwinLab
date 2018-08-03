@@ -2,19 +2,39 @@
 {% block page_title %} Lab members {% endblock %}
 
 {% block content %}
+<span class="text-right">
+    {% if current_user.is_anonymous %}
+        <p>Member of Irwin Lab? <a class="btn btn-primary" href="{{ url_for('login') }}">Login/Register</a></p>
+    {% else %}
+        <p>Hi {{ current_user.firstName }}!</p>
+        <p><a class="btn btn-primary" href="{{ url_for('profile', username=current_user.username) }}">My Profile</a>&nbsp;
+        <a class="btn btn-primary" href="{{ url_for('logout') }}">Logout</a></p>
+    {% endif %}
+</span>
 
-<div class="container">
-
+<div class="container clearfix">
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title"><h2>Lab Members</h2></div>
         </div>
     <div class="panel-body">
+{% for user in users if user.lastName == 'Irwin'  %}
+         <div class="container-fluid">
+            <div class="thumbnail pull-right" style="margin:10px;">
+                <img src="{{ url_for('static', filename='img/') }}{{ user.photo_name }}" width="400px" >
+            </div>
 
-{% for user in users %}
-        <div class="container-fluid">
-            <div class="thumbnail pull-right col-md-4">
-                <img src="{{ url_for('static', filename='img/') }}{{ user.photo_name }}" width="300px">
+            <div class="page-header">
+                <h3>{{ user.firstName }}&nbsp;{{user.lastName }}</h3><br>
+                <p >{{ user.bio | safe }}</p>
+            </div><br>
+
+        </div>
+        {% endfor %}
+    {% for user in users | sort(attribute='lastName') if user.lastName != 'Irwin'  %}
+        <div class="container-fluid clearfix">
+            <div class="thumbnail pull-right ">
+                <img src="{{ url_for('static', filename='img/') }}{{ user.photo_name }}" width="200px">
             </div>
 
             <div class="page-header">

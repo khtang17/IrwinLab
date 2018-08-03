@@ -42,3 +42,21 @@ def notify_new_user_to_admin(user):
                recipients=app.config['MAIL_DEFAULT_SENDER'],
                text_body=render_template('email/notify_admin.txt', user=user),
                html_body=render_template('email/notify_admin.html', user=user))
+
+def notify_user_access(user):
+    print("user's email is " + user.email)
+    send_email('Irwin Lab Access Granted',
+               sender=app.config['ADMINS'][0],
+               recipients=[user.email],
+               text_body=render_template('email/notify_to_user.txt', user=user),
+               html_body=render_template('email/notify_to_user.html', user=user))
+
+
+def notify_email_change(user, new_email):
+    print('new :' + new_email)
+    print("user's email is " + user.email)
+    send_email('Irwin Lab Account Email Changed',
+               sender=app.config['ADMINS'][0],
+               recipients=[new_email],
+               text_body=render_template('email/email_change.txt', user=user,  new_email=new_email),
+               html_body=render_template('email/email_change.html', user=user,  new_email=new_email))

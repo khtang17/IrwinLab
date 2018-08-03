@@ -1,0 +1,11 @@
+Dear {{ user.firstName }},
+
+    You have been granted access to Irwin Lab.
+        Your email : {{ user.email }}
+        Your username : {{ user.username }}
+
+    To login and update your profile, please click on this link below:
+    {{ url_for('login', _external=True) }}
+
+Sincerely,
+Irwin Lab @ UCSF

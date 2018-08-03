@@ -35,7 +35,7 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different email address.')
 
 class EditProfileForm(FlaskForm):
-    title = StringField('Title')
+    username = StringField('Username')
     email = StringField('Change Email')
     photo = FileField('Profile Image')
     cancel = SubmitField('Cancel')
@@ -57,10 +57,11 @@ class ResetPasswordRequestForm(FlaskForm):
 
 
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password')
     password2 = PasswordField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Request Password Reset')
+        'Repeat Password', validators=[EqualTo('password')])
+    submit = SubmitField('Save')
+    cancel = SubmitField('Cancel')
 
 class ResendConfirmationEmail(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

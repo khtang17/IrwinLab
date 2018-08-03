@@ -19,12 +19,13 @@
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.title.label }}<br>
-            {{ form.title(size=32) }}<br>
-            {% for error in form.title.errors %}
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+
          <p>
             {{ form.email.label }}<br>
             {{ form.email(size=32) }}<br>
@@ -47,7 +48,7 @@
 
         <div class="row">
 
-            <p>{{ form.submit() }}&nbsp;{{ form.cancel() }}</p>
+            <p>{{ form.submit(class="btn btn-primary") }}&nbsp;{{ form.cancel(class="btn btn-primary") }}</p>
 
         </div>
     </form>

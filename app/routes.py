@@ -7,6 +7,7 @@ from app.models import User
 from app.emails import send_confirmation_request_email, send_password_reset_email, notify_new_user_to_admin
 import requests
 from itsdangerous import URLSafeTimedSerializer
+from sqlalchemy import desc
 import os
 
 
@@ -59,8 +60,8 @@ def publications():
 
 @app.route('/people')
 def people():
-    users = User.query.filter_by(isActive=True)
-    former_users = User.query.filter_by(isActive=False)
+    users = User.query.filter_by(isActive=True).all()
+    former_users = User.query.filter_by(isActive=False).order_by(desc(User.id)).all()
     return render_template("people.html", users=users, former_users=former_users)
 
 
@@ -77,19 +78,29 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash('Invalid username or password', category='danger')
             return redirect(url_for('login'))
+        if user.confirmed is False:
+            flash('User is not confirmed yet. Please check your email for confirmation letter.', category='info')
+            return redirect(url_for('logout'))
+        elif user.admin_approved is False:
+                flash('User is not approved by admin yet. Admin has been notified and will get back to you shortly. If it takes too long, please notice us at bks.lab4u@gmail.com.', category='info')
+                return redirect(url_for('logout'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('edit_profile', username=current_user.username)
+            if user.role == 'user':
+                next_page = url_for('profile', username=current_user.username)
+            elif user.role == 'admin':
+                return redirect('/admin')
         return redirect(next_page)
     return render_template('login.html', form=form)
 
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    flash('Log out successfully!', category='success')
+    return redirect(url_for('login'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -104,10 +115,15 @@ def register():
         db.session.commit()
         notify_new_user_to_admin(user)
         send_confirmation_request_email(user)
-        flash('A confirmation email has been sent to you by email.')
-        flash('Congratulations, you are now a registered user!')
+        flash('A confirmation email has been sent to you by email.', category='info')
         return redirect(url_for('login'))
     return render_template('register.html',  form=form)
+
+@app.route('/profile/<username>')
+@login_required
+def profile(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('profile.html', user=user)    
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -118,7 +134,7 @@ def edit_profile():
     if form.cancel.data:
         return redirect(url_for('people'))
     if form.validate_on_submit():
-        current_user.title = form.title.data
+        current_user.username = form.username.data
         current_user.email = form.email.data
         current_user.bio = request.form['bio']
         if form.photo.data is None:
@@ -128,12 +144,13 @@ def edit_profile():
             photo_file.save(os.path.join(app.config['UPLOAD_FOLDER'], photo_file.filename))
             current_user.photo_name = photo_file.filename
         db.session.commit()
-        flash('Your changes have been saved.')
+        flash('Your changes have been saved.', category='success')
         return redirect(url_for('people'))
     elif request.method == 'GET':
-        form.title.data = current_user.title
+        form.username.data = current_user.username
         form.email.data = current_user.email
         form.photo.data = current_user.photo_name
+        print(current_user.photo_name)
     return render_template('edit_profile.html', form=form)
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
@@ -145,7 +162,7 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash('Check your email for the instructions to reset your password')
+        flash('Please check your email for the instructions to reset your password', category='info')
         return redirect(url_for('login'))
     return render_template('reset_password_request.html', form=form)
 
@@ -160,7 +177,7 @@ def reset_password(token):
     if form.validate_on_submit():
         user.set_password(form.password.data)
         db.session.commit()
-        flash('Your password has been reset.')
+        flash('Your password has been reset.', category='success')
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
 
@@ -174,12 +191,12 @@ def confirm(token):
         return redirect(url_for('unconfirm'))
     user = User.query.filter_by(email=email).first()
     if user.confirmed:
-        flash('Account already confirmed. Please login.')
+        flash('Account already confirmed. Please login.', category='info')
     else:
         user.confirmed = True
         db.session.add(user)
         db.session.commit()
-        flash('Thank you for confirming your email address.')
+        flash('Thank you for confirming your email address.', category='success')
     return redirect(url_for('login'))
 
 @app.route('/unconfirm', methods=['GET', 'POST'])
@@ -190,8 +207,21 @@ def unconfirm():
         user = User.query.filter_by(email=email).first_or_404()
         if user:
             send_confirmation_request_email(user)
-        flash('Please check your inbox for confirmation email')
+        flash('Please check your inbox for confirmation email', category='info')
         return redirect(url_for('login'))
     return render_template('unconfirm.html', form=form)
+
+@app.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ResetPasswordForm()
+    if form.cancel.data:
+        return redirect(url_for('profile', username=current_user.username))
+    if form.validate_on_submit():
+        current_user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been changed.', category='success')
+        return redirect(url_for('profile', username=current_user.username))
+    return render_template('reset_password.html', form=form)
 
 

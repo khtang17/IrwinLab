@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from itsdangerous import URLSafeTimedSerializer
 import jwt
 from time import time
+from sqlalchemy import event
 
 
 
@@ -13,6 +14,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(16))
     role = db.Column(db.String(16), default='user')
     confirmed = db.Column(db.Boolean, default=False)
+    admin_approved = db.Column(db.Boolean, default=False)
     email = db.Column(db.String(200))
     password_hash = db.Column(db.String(200))
     firstName = db.Column(db.String(16))
@@ -59,3 +61,14 @@ class User(db.Model, UserMixin):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
+def my_append_listener(target, value, oldvalue, initiator):
+    from app.emails import notify_user_access
+
+    if value:
+        print(value)
+        print(target.admin_approved)
+        notify_user_access(target)
+
+event.listen(User.admin_approved, 'set', my_append_listener, retval=False)

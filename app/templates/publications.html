@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
-
+{% block page_title %}Publications{% endblock%}
 {% block content %}
-    <h1>Lab Publications</h1>
+    <h1>Lab Publications</h1><hr>
          {% for Year, publications in publications | groupby('Year') | reverse %}
                 <h3>{{ Year }}</h3>
                 <p>
