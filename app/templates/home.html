@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+{% block page_title %} Homepage {% endblock %}
+{% block css %}
+    <link href="{{ url_for('static', filename='css/hero.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/carousel.css') }}" rel="stylesheet">
+    <style type="text/css">
+      .hero-image { background-image: url('{{ url_for('static', filename='img/hero-zinc-fda.png') }}');}
+    </style>
+{% endblock %}
+
+{% block hero %}
+  <div class="clearfix"></div>
+  <div class="hero-image"></div>
+{% endblock %}
+
+{% block header %}
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+        <li data-target="#myCarousel" data-slide-to="5"></li>
+        <li data-target="#myCarousel" data-slide-to="6"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>ZINC12</h1>
+              <p>ZINC is a free database of commercially-available compounds for virtual screening. 
+  ZINC contains over 35 million purchasable compounds in ready-to-dock, 3D formats.</p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+            <img src="{{ url_for('static', filename='img/dockblaster1.png') }}">
+            <div class="mask"></div>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>DOCK Blaster</h1>
+              <p>DOCK Blaster is a public access service for structure-based ligand discovery.
+ It aims to help you answer the question: What small molecules should I purchase and test for activity against my biological target for which I have a structure?
+</p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn more</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>SEA</h1>
+              <p>
+The Similarity ensemble approach relates proteins based on the set-wise chemical similarity among their ligands. It can be used to rapidly search large compound databases and to build cross-target similarity maps.
+
+</p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Aggregator Advisor</h1>
+              <p>
+A free service to suggest molecules that aggregate or may aggregate under biochemical assay conditions. Our approach is based on the chemical similarity to known aggregators, and physical properties. 
+</p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>DUDE</h1>
+              <p>
+DUD-E is designed to help benchmark molecular docking programs by providing challenging,
+property-matched decoys.
+</p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Covalent DOCKing</h1>
+              <p>
+DOCKovalent is a covalent docking program. 
+</p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>ZINC15</h1>
+              <p>
+ZINC15 is a new version of ZINC with many new features.</p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-5">
+      <p class="lead-in">We develop software tools and databases for
+ligand discovery and systems pharmacology.</p>
+
+      <p class="lead-in">Our research collaborations drive innovations in
+our software and databases, which we make freely available 
+to investigators worldwide. Supported by 
+<a href="http://www.nigms.nih.gov">NIGMS GM71896</a>.
+     </p>
+    </div>
+    <div class="col-md-4 col-md-offset-3">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <h3>Lab Resources</h3>
+          </div>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <a href="http://wiki.docking.org">Wiki and Manuals</a>
+          </li>
+          <li class="list-group-item">
+            <a href="mailto:chemistry4biology@gmail.com">Report Problems</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}

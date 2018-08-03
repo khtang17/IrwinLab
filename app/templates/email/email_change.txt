@@ -1,0 +1,8 @@
+Dear {{ user.firstName }}
+
+Your email has been changed from {{ old_email }} to {{ new_email }}
+The temporary password for your account is 1111. Please change it when you login.
+Please notify us if you did not authorize this change.
+
+Best,
+Irwin Lab @ UCSF

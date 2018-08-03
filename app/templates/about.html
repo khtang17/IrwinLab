@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block page_title %}About us{% endblock%}
+{% block content %}
+    <div class="thumbnail pull-right">
+      <div class="caption"><img src="{{ url_for('static', filename='img/lab1.jpg') }}" width="400px"></div>
+    </div>
+    <h1>About the Irwin Lab</h1>
+
+  <p>
+Our research focuses on the use of computational techniques to discover new small molecules that bind to proteins. We develop software tools and databases, which we use ourselves, and also give away for free in the hope that they will be useful for others. 
+
+</p>
+<p>
+The Irwin Lab is supported by 
+<a href="http://www.nigms.nih.gov">NIGMS GM71896</a>.
+</p>
+{% endblock %}

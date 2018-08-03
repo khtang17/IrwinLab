@@ -1,0 +1,4 @@
+This is the new user registered in Irwin Lab
+
+Username : {{ user.username }}
+Email : {{ user.email }}

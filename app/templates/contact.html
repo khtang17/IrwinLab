@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block page_title %}Contact Us{% endblock%}
+{% block content %}
+    <h1>Contact</h1>
+
+<address>
+John Irwin Lab<br>
+Byers Hall<br>
+Department of Pharmaceutical Chemistry<br>
+University of California San Francisco<br>
+1700 4th St, Suite 508A<br>
+San Francisco CA 94158-2330<br>
+USA<br><br>
++1 (415) 937 146 one.<br>
+</address>
+<br />
+<br />
+
+<h2>Mission Bay Campus can be reached:</h2>
+<h3>by public transportation:</h3>
+
+<ul>
+<li>Option 1: Exit BART at the 16th St Station and wait for the free UCSF Red shuttle that stops directly outside the Burger King (This option is only available on weekdays: UCSF Shuttles).</li>
+<li>Option 2: Exit BART at the Embarcadero Station and then take the MUNI T-line inbound to Sunnydale. Exit at the Mission Bay stop on 3rd Street.</li>
+<li>Option 3: Exit Caltrain and then walk along 4th St for about 10-15 minutes until arriving at UCSF - if the Muni is there, you can get on the T-line inbound and exit at the Mission Bay stop on 3rd Street, but this is often slower than walking.</li>
+</ul>
+<h3>by car:</h3>
+<ul><li>
+We are at 600 16th Street Street, between Owens and 4th St. There are two parking garages (please park in the garages and not in the surface lots) on campus that are equally convenient.</li>
+</li></ul>
+<h3>by transporter:</h3>
+<ol>
+<li>Have the technician in the red jersey set the transporter coordinates to 37.767759 N, 122.391173 W.</li>
+<li>Energize!</li>
+</ol>
+
+
+<h3>Once on campus, proceed to Genentech Hall:</h3>
+<ol>
+<li>You will have to enter through Genentech Hall from the Koret Quad side (Red dot on the map below)
+<li>Sign in at security for a meeting with Dr. John Irwin (office Byers Hall 508A)
+<li>Take the elevator or staircase to the fifth floor
+<li>Walk into Byers Hall straight down the corridor, turn LEFT, go past the Byers Hall elevators  to the 501 Area. 
+Walk though into the PI suite (508). 
+</ol>
+
+
+    <div class="thumbnail pull-right">
+        <img src="{{ url_for('static', filename='img/map_to_mission_bay.png') }}" width="1200px">
+    </div>
+
+
+
+{% endblock %}

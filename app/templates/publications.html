@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block page_title %}Publications{% endblock%}
+{% block content %}
+    <h1>Lab Publications</h1><hr>
+         {% for Year, publications in publications | groupby('Year') | reverse %}
+                <h3>{{ Year }}</h3>
+                <p>
+                    <ul>
+                    {% for pub in publications %}
+                    <li>{{ pub.PublicationTitle }}
+                            {% for source in pub.PublicationSource %}
+                                    <a href="{{ source.PublicationSourceURL }}">[{{ source.PublicationSourceName }}]</a>
+                                {% endfor %}
+
+                    {% endfor %}</li>
+
+                         <br>
+                    </ul>
+                </p>
+        {% endfor %}
+
+    <!--<ul>-->
+        <!--{% for publication in publications %}-->
+        <!--<li>-->
+            <!--<p>-->
+                <!--{{ publication['PublicationTitle'] }}-->
+            <!--{% for source in publication['PublicationSource'] %}-->
+                <!--<a href="{{ source['PublicationSourceURL'] }}">{{ source['PublicationSourceName'] }}</a>-->
+            <!--{% endfor %}-->
+            <!--</p>-->
+        <!--</li>-->
+        <!--{% endfor %}-->
+    <!--</ul>-->
+{% endblock %}

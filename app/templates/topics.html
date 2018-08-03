@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block page_title %}Topics{% endblock%}
+{% block content %}
+
+<div class="thumbnail pull-right">
+<img src="{{ url_for('static', filename='img/dockblaster3.png') }}" width="400px">
+</div>
+<h1>Make docking as easy to use as BLAST</h1>
+
+<p>
+Molecular docking is the most pragmatic approach to use protein structures for ligand discovery.
+Nothwithstanding numerous successes, molecular docking remains challenging. Our work focuses
+on lowering the barriers to using molecular docking, particularly for non-specialists.
+</p>
+<p>
+We are part of the team of groups that contribute to the development of the UCSF DOCK software.
+We also develop and maintain public access tools that are powered by UCSF DOCK. 
+
+<ul>
+<li>DOCK Blaster - 
+<a target=_blank href="http://blaster.docking.org">
+blaster.docking.org</a> - a free web portal for non-covalent molecular docking.
+</li>
+<li>DOCKovalent - <a target=_blank href="http://covalent.docking.org">
+covalent.docking.org</a> - a free covalent docking server.
+</li>
+<li>Metabolite docking - <a target=_blank href="http://metabolite.docking.org">
+metabolite.docking.org</a> - a molecular docking service focused on metabolite docking for 
+protein function discovery.
+</li>
+</ul>
+
+<hr />
+
+
+<div class="thumbnail pull-right">
+<img src="{{ url_for('static', filename='img/zincscreen.png') }}" width="400px">
+</div>
+<h1>Tools for Ligand-based and gene-based ligand discovery</h1>
+<p>
+We develop and maintain 
+<a target=_blank href="http://zinc.docking.org">ZINC</a>, a database of commercially available and annotated compounds for virtual screening, ligand discovery, 
+and systems pharmacology.
+</p>
+<p>
+ZINC allows you to answer questions such as: 
+<ul>
+<li>What compounds can I buy that are similar to my compound?</li>
+<li>What compounds can I buy that are active against my targret?</li>
+</ul>
+
+
+<p>
+We are currently working on a major new version, ZINC 15, that offers many new tools for finding bioactive compounds for targets.
+</p>
+<p>
+The new version of ZINC allows new questions such as:
+<ul>
+<li>What biogenic compounds are active against my target?</li>
+<li>What is the nearest metabolite, drug, or other bioactive to my compound?</li>
+</ul>
+</p>
+
+
+
+<div class="thumbnail pull-right">
+<img src="{{ url_for('static', filename='img/agadscreen.png') }}" width="400px">
+</div>
+<h1>Aggregator advisor</h1>
+
+<p>
+Aggregator advisor answers the question: Is my compound previously 
+reported to aggregate, or is it similar to one that is known 
+to aggregate?
+</p>
+
+
+<hr />
+
+
+<h1>Other Research topics</h1>
+
+<p>
+<ul>
+<li>
+What would an optimal phenotypic screening library look like?</li>
+<li>
+How good is a screening library?</li>
+<li>
+How could a screening library be improved</li>
+</ul>
+These are questions we are currently working on, using SEA, ZINC and other tools.
+
+
+
+
+{% endblock %}

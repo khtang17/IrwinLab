@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block page_title %} My profile {% endblock %}
+
+{% block content %}
+<span class="text-right">
+    {% if current_user.is_anonymous %}
+        <p>Member of Irwin Lab? &nbsp;<a class="btn btn-primary" href="{{ url_for('login') }}">Login/Register</a></p>
+    {% else %}
+        <b class="pull-left">Hi {{ current_user.firstName }}!</b>
+        <p><a class="btn btn-primary" href="{{ url_for('edit_profile') }}">Edit Profile</a>&nbsp;
+        	<a class="btn btn-primary" href="{{ url_for('change_password') }}">Change Password</a>&nbsp;
+        	<a class="btn btn-primary" href="{{ url_for('logout') }}">Logout</a>
+
+    </p>
+    {% endif %}
+</span>
+<div class="container-fluid clearfix">
+            <div class="thumbnail pull-right ">
+                <img src="{{ url_for('static', filename='img/') }}{{ current_user.photo_name }}" width="200px">
+            </div>
+
+            <div class="page-header">
+                <h3>{{ current_user.firstName }}&nbsp;{{ current_user.lastName }}</h3><br>
+                <p >{{ current_user.bio | safe }}</p>
+            </div><br>
+
+        </div>
+ 
+
+
+{% endblock %}
