@@ -72,3 +72,11 @@ def my_append_listener(target, value, oldvalue, initiator):
         notify_user_access(target)
 
 event.listen(User.admin_approved, 'set', my_append_listener, retval=False)
+
+
+def email_change_listener(target, value, oldvalue, initiator):
+    from app.email import notify_email_change
+    if value is not None:
+        notify_email_change(target, value)
+
+# event.listen(User.email, 'set', email_change_listener, retval=False)
