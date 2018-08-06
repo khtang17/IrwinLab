@@ -15,6 +15,15 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
+       {% for field in form.errors %}
+        {% for error in form.errors[field] %}
+            <div class="alert alert-danger">
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+                <strong>Error!</strong> {{error}}
+            </div>
+        {% endfor %}
+         {% endfor %}
+    </div>
 <h1>Edit Profile</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
@@ -35,7 +44,7 @@
         </p>
 
         <p>Edit bio</p>
-        <p><textarea name="bio" class="summernote">{{ current_user.bio }}</textarea></p>
+        <p><textarea name="bio" class="summernote">{{ current_user.bio if current_user.bio else '' }}</textarea></p>
 
         <p>
             {{ form.photo.label }}<br>
