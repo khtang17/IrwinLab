@@ -141,7 +141,7 @@ Analyzing the potential of fragment molecules as tools for enzyme function predi
         <div class="panel-body">
 {% for former_user in former_users %}
         <h3>{{ former_user.firstName }}&nbsp;{{ former_user.lastName }}</h3>
-        <p> {{ former_user.bio | safe }}</p>
+        <p> {{ former_user.bio | safe if former_user.bio else '' }}</p>
         {% endfor %}
         </div>
 <!--<h3>Teague Sterling</h3>
