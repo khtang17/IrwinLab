@@ -36,10 +36,14 @@ def send_confirmation_request_email(user):
                                          user=user, token=token))
 
 
-def notify_new_user_to_admin(user):
+def notify_new_user_to_admin(user, admins):
+    print(admins)
+    admin_emails = []
+    for admin in admins:
+      admin_emails.append(admin.email)
     send_email('Irwin Lab User Registration',
                sender=app.config['ADMINS'][0],
-               recipients=app.config['MAIL_DEFAULT_SENDER'],
+               recipients=admin_emails,
                text_body=render_template('email/notify_admin.txt', user=user),
                html_body=render_template('email/notify_admin.html', user=user))
 

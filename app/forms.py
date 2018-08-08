@@ -37,6 +37,8 @@ class RegistrationForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     username = StringField('Username')
     email = StringField('Change Email')
+    firstName = StringField('First Name')
+    lastName = StringField('Last Name')
     photo = FileField('Profile Image')
     cancel = SubmitField('Cancel')
     submit = SubmitField('Submit')

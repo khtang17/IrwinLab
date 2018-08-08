@@ -27,38 +27,57 @@
 <h1>Edit Profile</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        
+        <table class="table table-borderless">
+            <tr>
+                <td>
+                    <p>
+                        {{ form.username.label }}<br>
+                        {{ form.username(size=32) }}<br>
+                        
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        {{ form.email.label }}<br>
+                        {{ form.email(size=32) }}<br>
+                       
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>
+                        {{ form.firstName.label }}<br>
+                        {{ form.firstName(size=32) }}<br>
+                        
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        {{ form.lastName.label }}<br>
+                        {{ form.lastName(size=32) }}<br>
+                        
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <p>Edit bio</p>
+            <p><textarea name="bio" class="summernote">{{ current_user.bio if current_user.bio else '' }}</textarea></p>
 
-         <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=32) }}<br>
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+            <p>
+                {{ form.photo.label }}<br>
+                {{ form.photo(cols=50, rows=4) }}<br>
+                
 
-        <p>Edit bio</p>
-        <p><textarea name="bio" class="summernote">{{ current_user.bio if current_user.bio else '' }}</textarea></p>
+            </p>
 
-        <p>
-            {{ form.photo.label }}<br>
-            {{ form.photo(cols=50, rows=4) }}<br>
-            {% for error in form.photo.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
+            <div class="row">
 
-        </p>
+                <p>{{ form.submit(class="btn btn-primary") }}&nbsp;{{ form.cancel(class="btn btn-primary") }}</p>
 
-        <div class="row">
-
-            <p>{{ form.submit(class="btn btn-primary") }}&nbsp;{{ form.cancel(class="btn btn-primary") }}</p>
-
+            </div>
         </div>
     </form>
 

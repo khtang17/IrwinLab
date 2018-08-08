@@ -43,9 +43,12 @@
             </div>
 
             <div class="page-header">
+                <div class="clearfix">
                 <h3>{{ user.firstName }}&nbsp;{{user.lastName }}</h3><br>
                 <p >{{ user.bio | safe if user.bio else 'No bio posted yet'}}</p>
-            </div><br>
+            </div>
+             <br>
+            </div>
 
         </div>
     {% endfor %}
