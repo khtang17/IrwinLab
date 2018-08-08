@@ -33,8 +33,7 @@ class AdminModelView(ModelView):
 
 
 class UserView(AdminModelView):
-    column_list = ['id', 'username', 'role','admin_approved', 'isActive','email','confirmed',
-                   'firstName', 'lastName', 'title', 'position', 'former_position']
-    form_excluded_columns = ('password_hash', 'publication','bio')
+    column_list = ['id', 'username','firstName', 'lastName', 'role','admin_approved', 'isActive','email','confirmed']
+    form_excluded_columns = ('password_hash','bio')
     column_editable_list = ('isActive','confirmed', 'admin_approved')
 

@@ -113,7 +113,6 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        notify_new_user_to_admin(user)
         send_confirmation_request_email(user)
         flash('A confirmation email has been sent to you by email.', category='info')
         return redirect(url_for('login'))
@@ -136,6 +135,8 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.firstName = form.firstName.data
+        current_user.lastName = form.lastName.data
         current_user.bio = request.form['bio']
         if form.photo.data is None:
             form.photo.data = current_user.photo_name
@@ -149,6 +150,8 @@ def edit_profile():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
+        form.firstName.data = current_user.firstName
+        form.lastName.data = current_user.lastName
         form.photo.data = current_user.photo_name
         print(current_user.photo_name)
     return render_template('edit_profile.html', form=form)
@@ -162,7 +165,9 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash('Please check your email for the instructions to reset your password', category='info')
+            flash('Please check your email for the instructions to reset your password', category='info')
+        else:
+            flash('Your email is not found in our sytem!', category='danger')
         return redirect(url_for('login'))
     return render_template('reset_password_request.html', form=form)
 
@@ -196,7 +201,9 @@ def confirm(token):
         user.confirmed = True
         db.session.add(user)
         db.session.commit()
-        flash('Thank you for confirming your email address.', category='success')
+        admins = User.query.filter_by(role='admin').all()
+        notify_new_user_to_admin(user, admins)
+        flash('Thank you for confirming your email address. Admin has been notified of your registration', category='success')
     return redirect(url_for('login'))
 
 @app.route('/unconfirm', methods=['GET', 'POST'])

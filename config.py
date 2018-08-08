@@ -9,6 +9,10 @@ class Config(object):
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    USER_ENABLE_EMAIL = True  # Enable email authentication
+    USER_ENABLE_USERNAME = True  # Register and Login with username
+    USER_ENABLE_FORGOT_PASSWORD = True
+
     UPLOAD_FOLDER = 'app/static/img/'
     MAX_CONTENT_LENGTH = 1000 * 1000 * 1000
 
