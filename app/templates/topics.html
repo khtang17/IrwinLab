@@ -5,17 +5,16 @@
 <div class="thumbnail pull-right">
 <img src="{{ url_for('static', filename='img/dockblaster3.png') }}" width="400px">
 </div>
-<h1>Make docking as easy to use as BLAST</h1>
+<h1>Make docking as easy to use as BLAST by lowering the barriers to entry for molecular docking</h1>
 
 <p>
 Molecular docking is the most pragmatic approach to use protein structures for ligand discovery.
-Nothwithstanding numerous successes, molecular docking remains challenging. Our work focuses
-on lowering the barriers to using molecular docking, particularly for non-specialists.
+Notwithstanding numerous successes, the technique remains difficult to use for novices and is tricky even for experts. DOCK Blaster is our attempt to lower the barriers to using molecular docking.
 </p>
 <p>
-We are part of the team of groups that contribute to the development of the UCSF DOCK software.
-We also develop and maintain public access tools that are powered by UCSF DOCK. 
-
+In 2018 we broke ground on a new version of DOCK Blaster, Blaster18, which aims to address weaknesses in our first implementation, Blaster9. </p>
+<p>Blaster18 is powered by UCSF DOCK 3.7 and ZINC15.</p>
+<p>We are currently testing Blaster18. In the meantime, the previous versions are:</p>
 <ul>
 <li>DOCK Blaster - 
 <a target=_blank href="http://blaster.docking.org">
@@ -30,13 +29,13 @@ protein function discovery.
 </li>
 </ul>
 
-<hr />
+<hr>
 
 
 <div class="thumbnail pull-right">
 <img src="{{ url_for('static', filename='img/zincscreen.png') }}" width="400px">
 </div>
-<h1>Tools for Ligand-based and gene-based ligand discovery</h1>
+<h1>Ligand based tools</h1>
 <p>
 We develop and maintain 
 <a target=_blank href="http://zinc15.docking.org">ZINC</a>, a database of commercially available and annotated compounds for virtual screening, ligand discovery, 
@@ -45,8 +44,10 @@ and systems pharmacology.
 <p>
 ZINC allows you to answer questions such as: 
 <ul>
-<li>What compounds can I buy that are similar to my compound?</li>
-<li>What compounds can I buy that are active against my targret?</li>
+<li>What compounds can I buy that are similar to my compound? (ABC or Analog By Catalog)</li>
+<li>What compounds can I buy that are active against my target? (intersecting annotated and purchasable chemical space)</li>
+<li>What are the most similar metabolites, drugs, or other bioactives to my compound? (bioactivity inference by molecular similarity)</li>
+<li>What building blocks can I buy to do chemistry?</li>
 </ul>
 
 
