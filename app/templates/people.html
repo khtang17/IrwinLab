@@ -7,7 +7,11 @@
         <p>Member of Irwin Lab? <a class="btn btn-primary" href="{{ url_for('login') }}">Login/Register</a></p>
     {% else %}
         <p>Hi {{ current_user.firstName }}!</p>
-        <p><a class="btn btn-primary" href="{{ url_for('profile', username=current_user.username) }}">My Profile</a>&nbsp;
+        <p>
+        {% if current_user.role == 'admin' %}
+        <a class="btn btn-primary" href="/admin">Manage Users</a>&nbsp;
+        {% endif %}
+        <a class="btn btn-primary" href="{{ url_for('profile', username=current_user.username) }}">My Profile</a>&nbsp;
         <a class="btn btn-primary" href="{{ url_for('logout') }}">Logout</a></p>
     {% endif %}
 </span>

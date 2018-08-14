@@ -105,18 +105,24 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('people'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, firstName=form.firstName.data, lastName=form.lastName.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        send_confirmation_request_email(user)
-        flash('A confirmation email has been sent to you by email.', category='info')
-        return redirect(url_for('login'))
-    return render_template('register.html',  form=form)
+    visitor_address = request.remote_addr
+    if '169.230.9' in visitor_address:
+
+        if current_user.is_authenticated:
+            return redirect(url_for('people'))
+        form = RegistrationForm()
+        if form.validate_on_submit():
+            user = User(username=form.username.data, email=form.email.data, firstName=form.firstName.data, lastName=form.lastName.data)
+            user.set_password(form.password.data)
+            db.session.add(user)
+            db.session.commit()
+            send_confirmation_request_email(user)
+            flash('A confirmation email has been sent to you by email.', category='info')
+            return redirect(url_for('login'))
+        return render_template('register.html',  form=form)
+    else:
+        flash('Access denied!Your IP Address is invalid', category='danger')
+        return render_template('404.html')
 
 @app.route('/profile/<username>')
 @login_required
