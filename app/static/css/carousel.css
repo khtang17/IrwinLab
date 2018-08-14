@@ -34,7 +34,8 @@
   left: 0;
   min-width: 100%;
   height: 500px;
-    filter:contrast(20%) brightness(170%);
+    filter:contrast(25%) brightness(170%);
+  border: 1px solid #000000;
 }
 
 .carousel .carousel-caption {

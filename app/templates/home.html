@@ -24,33 +24,21 @@
         <li data-target="#myCarousel" data-slide-to="4"></li>
         <li data-target="#myCarousel" data-slide-to="5"></li>
         <li data-target="#myCarousel" data-slide-to="6"></li>
+        <li data-target="#myCarousel" data-slide-to="7"></li>
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
 
+        <div class="item active">
+           <img src="{{ url_for('static', filename='img/zinc15.png') }}">
           <div class="container">
             <div class="carousel-caption">
-              <h1>ZINC12</h1>
-              <p>ZINC is a free database of commercially-available compounds for virtual screening. 
-  ZINC contains over 35 million purchasable compounds in ready-to-dock, 3D formats.</p>
+              <h1>ZINC15</h1>
+              <p>ZINC15 is a new version of ZINC with many new features.</p>
               <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
             </div>
           </div>
         </div>
-        <div class="item">
-            <img src="{{ url_for('static', filename='img/dockblaster1.png') }}">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>DOCK Blaster</h1>
-              <p>DOCK Blaster is a public access service for structure-based ligand discovery.
- It aims to help you answer the question: What small molecules should I purchase and test for activity against my biological target for which I have a structure?
-</p>
-              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn more</a></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
+         <div class="item">
           <div class="container">
             <div class="carousel-caption">
               <h1>SEA</h1>
@@ -64,21 +52,21 @@ The Similarity ensemble approach relates proteins based on the set-wise chemical
         </div>
 
         <div class="item">
+            <img src="{{ url_for('static', filename='img/dockblaster1.png') }}">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Aggregator Advisor</h1>
-              <p>
-A free service to suggest molecules that aggregate or may aggregate under biochemical assay conditions. Our approach is based on the chemical similarity to known aggregators, and physical properties. 
+              <h1>DOCK Blaster</h1>
+              <p>DOCK Blaster is a public access service for structure-based ligand discovery.
+ It aims to help you answer the question: What small molecules should I purchase and test for activity against my biological target for which I have a structure?
 </p>
-              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn more</a></p>
             </div>
           </div>
         </div>
-
-        <div class="item">
+          <div class="item">
           <div class="container">
             <div class="carousel-caption">
-              <h1>DUDE</h1>
+              <h1>DUD-E</h1>
               <p>
 DUD-E is designed to help benchmark molecular docking programs by providing challenging,
 property-matched decoys.
@@ -99,13 +87,34 @@ DOCKovalent is a covalent docking program.
             </div>
           </div>
         </div>
+       
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Aggregator Advisor</h1>
+              <p>
+A free service to suggest molecules that aggregate or may aggregate under biochemical assay conditions. Our approach is based on the chemical similarity to known aggregators, and physical properties. 
+</p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
+            </div>
+          </div>
+        </div>
 
         <div class="item">
           <div class="container">
             <div class="carousel-caption">
-              <h1>ZINC15</h1>
-              <p>
-ZINC15 is a new version of ZINC with many new features.</p>
+              <h1>ZINC12</h1>
+              <p>ZINC is a free database of commercially-available compounds for virtual screening. 
+  ZINC contains over 35 million purchasable compounds in ready-to-dock, 3D formats.</p>
+              <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
+            </div>
+          </div>
+        </div>
+         <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>And other exciting upcoming new tools</h1>
+              <p></p>
               <p><a class="btn btn-lg btn-default" href="{{ url_for('projects') }}" role="button">Learn More</a></p>
             </div>
           </div>
