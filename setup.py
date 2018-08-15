@@ -11,12 +11,12 @@ from os import path
 #     long_description = f.read()
 
 setup(
-    name='VENDOR-UPLOAD',
+    name='IRWIN-LAB',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.20180814.2',
+    version='0.20180815.4',
 
     description='Irwin Lab v2.0',
     long_description='',
@@ -118,6 +118,7 @@ setup(
         'config.py',
         'setup.py',
         'requirements.txt',
+       
     ),
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
@@ -141,7 +142,7 @@ setup(
     # need to place data files outside of your packages. See:
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    # data_files=[('my_data', ['data/data_file.txt'])],
+    # data_files=[('app', ['app.db'])],
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
