@@ -24,6 +24,10 @@ class User(db.Model, UserMixin):
     isActive = db.Column(db.Boolean, default=True)
     photo_name = db.Column(db.String(32), nullable=True)
 
+    @property
+    def profile_url(self):
+        return app.config['PROFILE_IMAGE_URL'] + self.photo_name
+
     def __init__(self, username, email, firstName, lastName):
         self.username = username
         self.email = email

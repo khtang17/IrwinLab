@@ -11,6 +11,8 @@ class Config(object):
     # 'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    PROFILE_IMAGE_DIR = '/mnt/nfs/soft/www/apps/irwin_lab/profile_images/'
+
     USER_ENABLE_EMAIL = True  # Enable email authentication
     USER_ENABLE_USERNAME = True  # Register and Login with username
     USER_ENABLE_FORGOT_PASSWORD = True

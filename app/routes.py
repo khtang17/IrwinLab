@@ -148,7 +148,7 @@ def edit_profile():
             form.photo.data = current_user.photo_name
         else:
             photo_file = form.photo.data
-            photo_file.save(os.path.join(app.config['UPLOAD_FOLDER'], photo_file.filename))
+            photo_file.save(os.path.join(app.config['PROFILE_IMAGE_DIR'], photo_file.filename))
             current_user.photo_name = photo_file.filename
         db.session.commit()
         flash('Your changes have been saved.', category='success')
