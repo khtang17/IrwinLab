@@ -9,7 +9,12 @@ import requests
 from itsdangerous import URLSafeTimedSerializer
 from sqlalchemy import desc
 import os
+from datetime import datetime
 
+def get_miliseconds():
+    (dt, micro) = datetime.utcnow().strftime('%Y%m%d%H%M%S.%f').split('.')
+    dt = "%s%03d" % (dt, int(micro) / 1000)
+    return dt
 
 PUBLICATIONS_SOURCE = 'tau.compbio.ucsf.edu'
 PUBLICATIONS_URL_ROOT = 'http://api.profiles.ucsf.edu/json/v2/'
@@ -106,7 +111,7 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     visitor_address = request.remote_addr
-    if '169.230.9' in visitor_address:
+    if '169.230.' in visitor_address:
 
         if current_user.is_authenticated:
             return redirect(url_for('people'))
@@ -134,7 +139,6 @@ def profile(username):
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-
     form = EditProfileForm(current_user.username)
     if form.cancel.data:
         return redirect(url_for('people'))
@@ -148,8 +152,9 @@ def edit_profile():
             form.photo.data = current_user.photo_name
         else:
             photo_file = form.photo.data
-            photo_file.save(os.path.join(app.config['PROFILE_IMAGE_DIR'], photo_file.filename))
-            current_user.photo_name = photo_file.filename
+            file_name = "{}_{}".format(get_miliseconds(), photo_file.filename.replace(" ","_"))
+            photo_file.save(os.path.join(app.config['PROFILE_IMAGE_DIR'], file_name))
+            current_user.photo_name = file_name
         db.session.commit()
         flash('Your changes have been saved.', category='success')
         return redirect(url_for('people'))

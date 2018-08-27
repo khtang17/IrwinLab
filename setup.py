@@ -16,7 +16,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.20180815.13',
+    version='0.20180827.1',
 
     description='Irwin Lab v2.0',
     long_description='',
@@ -43,7 +43,7 @@ setup(
 
         # Indicate who your project is intended for
         'Intended Audience :: Public',
-        'Topic :: Software Development :: Build Tools',
+        
 
         # Pick your license as you wish (should match "license" above)
         'License :: UC Regents',
@@ -54,7 +54,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='sample setuptools development',
+    keywords='research laboratory docking development',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().

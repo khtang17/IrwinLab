@@ -17,7 +17,7 @@
 <div class="container-fluid clearfix">
             <div class="thumbnail pull-right ">
                   {% if current_user.photo_name %}
-                <img src="{{ url_for('static', filename='img/') }}{{ current_user.photo_name }}" width="200px" alt="{{ current_user.photo_name }}">
+                <img src="{{ current_user.profile_url }}" width="200px" alt="{{ current_user.photo_name }}">
             {% else %}
                 <img src="{{ url_for('static', filename='img/raw/profile_img_holder.png') }}" width="200px">
                 {% endif %}

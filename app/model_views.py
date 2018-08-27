@@ -1,5 +1,5 @@
 from flask_user import current_user
-from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib.sqla.view import ModelView, func
 from flask import url_for, redirect, request, abort
 
 
@@ -36,4 +36,13 @@ class UserView(AdminModelView):
     column_list = ['id', 'username','firstName', 'lastName', 'role','admin_approved', 'isActive','email','confirmed']
     form_excluded_columns = ('password_hash','bio')
     column_editable_list = ('isActive','confirmed', 'admin_approved')
+    def get_query(self):
+        return self.session.query(self.model).filter(self.model.isActive == True)
+
+class FormerUserView(AdminModelView):
+    column_list = ['id','firstName', 'lastName', 'isActive','email', 'bio']
+    form_excluded_columns = ('password_hash','bio','confirmed', 'admin_approved', 'role')
+    column_editable_list = ('isActive',)
+    def get_query(self):
+        return self.session.query(self.model).filter(self.model.isActive == False)
 
