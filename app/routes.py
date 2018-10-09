@@ -75,6 +75,7 @@ def contact():
     return render_template("contact.html")
 
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -111,7 +112,7 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     visitor_address = request.remote_addr
-    if '169.230.' in visitor_address:
+    if '169.230.' or '128.218.' or '10.60.' in visitor_address:
 
         if current_user.is_authenticated:
             return redirect(url_for('people'))

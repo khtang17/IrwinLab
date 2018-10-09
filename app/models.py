@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     title = db.Column(db.String(32), nullable=True)
     bio = db.Column(db.String(1000), nullable=True)
     isActive = db.Column(db.Boolean, default=True)
-    photo_name = db.Column(db.String(32), nullable=True)
+    photo_name = db.Column(db.String(100), nullable=True)
 
     @property
     def profile_url(self):
@@ -83,7 +83,7 @@ event.listen(User.admin_approved, 'set', my_append_listener, retval=False)
 
 
 def email_change_listener(target, value, oldvalue, initiator):
-    from app.email import notify_email_change
+    from app.emails import notify_email_change
     if value is not None:
         notify_email_change(target, value)
 
