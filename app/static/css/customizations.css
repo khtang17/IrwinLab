@@ -115,16 +115,10 @@
   }
 
 .affix + .container-fluid {
-      position:relative
+      position:relative;
       padding-top: 70px;
       }
 
-
-#footer{
-    padding: 20px 50px 10px 10px;
-    justify-content: middle;
-
-}
 .text-center.border{
 	width:auto;
 	height:auto;
@@ -151,13 +145,19 @@
 }
 
 
-#footer {
-  height: 100px;
-  line-height: 50px;
-  text-align: center;
-}
+/*#footer {*/
+  /*height: 100px;*/
+  /*line-height: 50px;*/
+  /*text-align: center;*/
+/*}*/
 #footer-content {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
+}
+
+#footer{
+    padding: 20px 50px 10px 10px;
+	text-align: center;
+    /*justify-content: middle;*/
 }

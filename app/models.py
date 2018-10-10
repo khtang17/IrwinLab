@@ -74,7 +74,7 @@ def load_user(id):
 def my_append_listener(target, value, oldvalue, initiator):
     from app.emails import notify_user_access
 
-    if value:
+    if value and target.admin_approved is False:
         print(value)
         print(target.admin_approved)
         notify_user_access(target)
