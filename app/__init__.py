@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
-from config import Config
+from config import config
 import flask_admin
 from app.model_views import UserView, FormerUserView
 from flask_bootstrap import Bootstrap
@@ -11,7 +11,7 @@ import logging
 from logging.handlers import SMTPHandler
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config.from_object(config['prod'])
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)

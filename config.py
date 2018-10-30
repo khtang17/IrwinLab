@@ -18,8 +18,8 @@ class Config(object):
 
 
 
-    PROFILE_IMAGE_DIR = '/mnt/nfs/soft/www/apps/irwin_lab/profile_images/'
-    PROFILE_IMAGE_URL = 'http://files.docking.org/irwinlab/profile_images/'
+    # PROFILE_IMAGE_DIR = '/mnt/nfs/soft/www/apps/irwin_lab/profile_images/'
+    # PROFILE_IMAGE_URL = 'http://files.docking.org/irwinlab/profile_images/'
 
     USER_ENABLE_EMAIL = True  # Enable email authentication
     USER_ENABLE_USERNAME = True  # Register and Login with username
@@ -39,3 +39,28 @@ class Config(object):
     MAIL_DEFAULT_SENDER = ['bks.lab4u@gmail.com']
 
     CSRF_ENABLED = True
+
+class DevConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    'sqlite:///' + os.path.join(basedir, 'app.db')
+
+    PROFILE_IMAGE_DIR = 'app/static/img/'
+    PROFILE_IMAGE_URL = 'static/img/'
+
+
+class ProdConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+                              'sqlite:///' + os.path.join('/nfs/soft/www/apps/irwin_lab/database/', 'app.db')
+
+    PROFILE_IMAGE_DIR = '/mnt/nfs/soft/www/apps/irwin_lab/profile_images/'
+    PROFILE_IMAGE_URL = 'http://files.docking.org/irwinlab/profile_images/'
+
+config = {
+    "dev": DevConfig,
+    "prod": ProdConfig,
+    "default": DevConfig
+}
+
+

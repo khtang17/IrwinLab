@@ -16,7 +16,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.20181009.7',
+    version='0.20181030.1',
 
     description='Irwin Lab v2.0',
     long_description='',
@@ -102,7 +102,7 @@ setup(
         'python-dateutil==2.7.3',
         'python-editor==1.0.3',
         'pytz==2018.4',
-        'requests==2.19.1',
+        'requests==2.20.0',
         'six==1.11.0',
         'speaklater==1.3',
         'SQLAlchemy==1.2.8',

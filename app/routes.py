@@ -17,13 +17,10 @@ def allowed_file(filename):
 
 
 def allowed_size(file):
-    file.seek(0,2)
+    # file.seek(0,2)
     size = file.tell()
-    print(size)
-    if size > app.config['MAXIMUM_UPLOAD_SIZE']:
-        return False
-    else:
-        return True
+    if size < app.config['MAXIMUM_UPLOAD_SIZE']:
+        return file
 
 def get_miliseconds():
     (dt, micro) = datetime.utcnow().strftime('%Y%m%d%H%M%S.%f').split('.')
@@ -157,7 +154,7 @@ def edit_profile():
     form = EditProfileForm(current_user.username)
     if form.cancel.data:
         return redirect(url_for('people'))
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
         current_user.username = form.username.data
         current_user.email = form.email.data
         current_user.firstName = form.firstName.data
@@ -167,20 +164,16 @@ def edit_profile():
             form.photo.data = current_user.photo_name
         else:
             photo_file = form.photo.data
-            if allowed_size(photo_file):
-                if allowed_file(photo_file.filename):
-                    print(photo_file)
-                    file_name = "{}_{}".format(get_miliseconds(), photo_file.filename.replace(" ","_"))
-                    photo_file.save(os.path.join(app.config['PROFILE_IMAGE_DIR'], file_name))
-                    current_user.photo_name = file_name
-                else:
-                    flash('Photo was not saved because of incorrect format! Please only upload photo in .jpeg, .jpg, .png.',category='danger')
-                    form.photo.data = ''
-                    redirect(url_for('edit_profile'))
-            else:
-                flash('Photo was not saved because it is larger than 50MB!',category='danger')
-                form.photo.data = ''
-                redirect(url_for('edit_profile'))
+            file_name = "{}_{}".format(get_miliseconds(), photo_file.filename.replace(" ", "_"))
+            if not allowed_file(file_name):
+                flash('Photo was not saved because of incorrect format! Please only upload photo in .jpeg, .jpg, .png.',
+                      category='danger')
+                return redirect(url_for('edit_profile'))
+            elif not allowed_size(photo_file):
+                flash('Photo was not saved because it is larger than 5MB!', category='danger')
+                return redirect(url_for('edit_profile'))
+            photo_file.save(os.path.join(app.config['PROFILE_IMAGE_DIR'], file_name))
+            current_user.photo_name = file_name
         db.session.commit()
         flash('Your changes have been saved.', category='success')
         return redirect(url_for('people'))
@@ -190,7 +183,6 @@ def edit_profile():
         form.firstName.data = current_user.firstName
         form.lastName.data = current_user.lastName
         form.photo.data = current_user.photo_name
-        print(current_user.photo_name)
     return render_template('edit_profile.html', form=form)
 
 
