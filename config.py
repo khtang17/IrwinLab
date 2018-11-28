@@ -28,6 +28,8 @@ class Config(object):
     ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
     MAXIMUM_UPLOAD_SIZE = 5 * 1024 * 1024
 
+    ALLOWED_IP_ADDRESSES = ['169.230', '128.218', '10.60']
+
     MAX_CONTENT_LENGTH = 1000 * 1000 * 1000
 
     MAIL_SERVER = 'smtp.googlemail.com'
