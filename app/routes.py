@@ -122,12 +122,10 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    visitor_address = request.remote_addr
-    print(visitor_address)
+    # visitor_address = request.remote_addr
+    visitor_address = request.headers.get('X-Forwarded-For', request.remote_addr)
     for ip in app.config['ALLOWED_IP_ADDRESSES']:
-        print(ip)
         if str(visitor_address).startswith(ip):
-            print('test')
             if current_user.is_authenticated:
                 return redirect(url_for('people'))
             form = RegistrationForm()
@@ -139,10 +137,10 @@ def register():
                 send_confirmation_request_email(user)
                 flash('A confirmation email has been sent to you by email.', category='info')
                 return redirect(url_for('login'))
-            return render_template('register.html',  form=form)
+            return render_template('register.html',  form=form , visitor_address= visitor_address)
 
-    flash('Access denied!Your IP Address is invalid', category='danger')
-    return render_template('404.html')
+    flash('Access denied! Your IP Address (' + visitor_address + ') is invalid', category='danger')
+    return render_template('404.html' , visitor_address= visitor_address)
 
 @app.route('/profile/<username>')
 @login_required
