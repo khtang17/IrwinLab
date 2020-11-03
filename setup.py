@@ -74,7 +74,7 @@ setup(
         'cffi==1.11.5',
         'chardet==3.0.4',
         'click==6.7',
-        'cryptography==2.3',
+        'cryptography==3.2',
         'dominate==2.3.1',
         'enum34==1.1.6',
         'Flask==1.0.2',
